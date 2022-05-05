@@ -34,7 +34,7 @@ resource "bigip_fast_template" "consul-webinar" {
 {
       "tenant": "S21Consul_SD",
       "app": "Nginx",
-      "virtualAddress": "130.0.0.200",
+      "virtualAddress": "10.0.0.200",
       "virtualPort": 8080
 }
 EOF
