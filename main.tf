@@ -28,7 +28,7 @@ resource "bigip_fast_template" "consul-webinar" {
   depends_on = [data.archive_file.template_zip]
 }
 
- resource "bigip_fast_application" "inginx-webserver" {
+ resource "bigip_fast_application" "bnginx-webserver" {
   template        = "ConsulWebinar/ConsulWebinar"
   fast_json   = <<EOF
 {
