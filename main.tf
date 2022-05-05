@@ -28,18 +28,20 @@ resource "bigip_fast_template" "consul-webinar" {
   depends_on = [data.archive_file.template_zip]
 }
 
-/* resource "bigip_fast_application" "nginx-webserver" {
+ resource "bigip_fast_application" "inginx-webserver" {
   template        = "ConsulWebinar/ConsulWebinar"
   fast_json   = <<EOF
 {
-      "tenant": "Consul_SD",
+      "tenant": "S2Consul_SD",
       "app": "Nginx",
-      "virtualAddress": "10.0.0.200",
+      "virtualAddress": "120.0.0.200",
       "virtualPort": 8080
 }
 EOF
   depends_on = [bigip_fast_template.consul-webinar]
-}*/
+}
+
+/*
 resource "bigip_fast_application" "example-webserver" {
   template        = "examples/simple_http"
   fast_json   = <<EOF
@@ -53,3 +55,4 @@ resource "bigip_fast_application" "example-webserver" {
 EOF
   depends_on = [bigip_fast_template.consul-webinar]
 }
+*/
