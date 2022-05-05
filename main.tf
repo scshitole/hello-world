@@ -41,7 +41,7 @@ EOF
   depends_on = [bigip_fast_template.consul-webinar]
 }
 
-resource "bigip_fast_application" "bbnginx-webserver" {
+/*resource "bigip_fast_application" "bbnginx-webserver" {
   template        = "ConsulWebinar/ConsulWebinar"
   fast_json   = <<EOF
 {
@@ -52,5 +52,5 @@ resource "bigip_fast_application" "bbnginx-webserver" {
 }
 EOF
   depends_on = [bigip_fast_template.consul-webinar]
-}
+}*/
 
