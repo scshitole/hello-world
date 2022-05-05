@@ -14,7 +14,7 @@ terraform {
   }
 }
 
-/*
+
 data "archive_file" "template_zip" {
   type        = "zip"
   source_file = "ConsulWebinar.yaml"
