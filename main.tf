@@ -8,7 +8,7 @@ terraform {
   required_providers {
     bigip = {
       source = "F5Networks/bigip"
-      version = "1.5.0"
+      version = "1.11.1"
     }
   }
 }
@@ -20,3 +20,9 @@ data "archive_file" "template_zip" {
   output_path = "ConsulWebinar.zip"
 }
 
+resource "bigip_fast_template" "consul-webinar" {
+  name = "ConsulWebinar"
+  source = "ConsulWebinar.zip"
+  md5_hash = filemd5("ConsulWebinar.zip")
+  depends_on = [data.archive_file.template_zip]
+}
