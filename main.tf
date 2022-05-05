@@ -28,13 +28,13 @@ resource "bigip_fast_template" "consul-webinar" {
   depends_on = [data.archive_file.template_zip]
 }
 
- resource "bigip_fast_application" "abnginx-webserver" {
+ resource "bigip_fast_application" "nginx-webserver" {
   template        = "ConsulWebinar/ConsulWebinar"
   fast_json   = <<EOF
 {
-      "tenant": "S21Consul_SD",
+      "tenant": "Consul_SD",
       "app": "Nginx",
-      "virtualAddress": "10.0.0.200",
+      "virtualAddress": "101.0.0.200",
       "virtualPort": 8080
 }
 EOF
