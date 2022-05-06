@@ -7,6 +7,9 @@ definitions:
   app:
     title: Application
     description: give a unique name for this application
+  defpool:
+    title: pool defination
+    description: give a unique name for this application
   virtualAddress:
     title: Virtual Address
     description: IP addresses of virtual addresses (will create 80/443)
@@ -42,13 +45,13 @@ template: |
                 "virtualAddresses": [
                     "{{virtualAddress}}"
                 ],
-                "pool": "nginx_pool",
+                "pool": "{{defpool}}",
                 "persistenceMethods": [],
                 "profileMultiplex": {
                 "bigip": "/Common/oneconnect"
               }
               },
-              "nginx_pool": {
+              "{{defpool}}": {
                 "class": "Pool",
                 "monitors": [
                     "http"

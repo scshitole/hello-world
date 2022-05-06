@@ -14,7 +14,7 @@ terraform {
   }
 }
 
-/*
+
 data "archive_file" "template_zip" {
   type        = "zip"
   source_file = "ConsulWebinar.yaml"
@@ -27,7 +27,7 @@ resource "bigip_fast_template" "consul-webinar" {
   md5_hash = filemd5("ConsulWebinar.zip")
   depends_on = [data.archive_file.template_zip]
 }
-
+/*
  resource "bigip_fast_application" "nginx-webserver" {
   template        = "ConsulWebinar/ConsulWebinar"
   fast_json   = <<EOF
