@@ -41,7 +41,7 @@ resource "bigip_fast_template" "consul-webinar" {
 EOF
   depends_on = [bigip_fast_template.consul-webinar]
 }
-/*
+
 resource "bigip_fast_application" "nginx-app100" {
   template        = "ConsulWebinar/ConsulWebinar"
   fast_json   = <<EOF
@@ -49,7 +49,8 @@ resource "bigip_fast_application" "nginx-app100" {
       "tenant": "Consul_SD",
       "app": "app100",
       "virtualAddress": "11.0.0.200",
-      "virtualPort": 8080
+      "virtualPort": 8080,
+      "defpool": "app100_pool"
 }
 EOF
   depends_on = [bigip_fast_template.consul-webinar]
