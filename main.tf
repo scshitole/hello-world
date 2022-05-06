@@ -41,7 +41,7 @@ resource "bigip_fast_template" "consul-webinar" {
 EOF
   depends_on = [bigip_fast_template.consul-webinar]
 }
-
+/*
 resource "bigip_fast_application" "nginx-app100" {
   template        = "ConsulWebinar/ConsulWebinar"
   fast_json   = <<EOF
