@@ -17,19 +17,19 @@ terraform {
 
 data "archive_file" "template_zip" {
   type        = "zip"
-  source_file = "ConsulWebinar.yaml"
-  output_path = "ConsulWebinar.zip"
+  source_file = "FastWAF.yaml"
+  output_path = "FastWAF.zip"
 }
 
 resource "bigip_fast_template" "consul-webinar" {
-  name = "ConsulWebinar"
-  source = "ConsulWebinar.zip"
-  md5_hash = filemd5("ConsulWebinar.zip")
+  name = "FastWAF"
+  source = "FastWAF.zip"
+  md5_hash = filemd5("FastWAF.zip")
   depends_on = [data.archive_file.template_zip]
 }
 
  resource "bigip_fast_application" "nginx-webserver" {
-  template        = "ConsulWebinar/ConsulWebinar"
+  template        = "FastWAF/FastWAF"
   fast_json   = <<EOF
 {
       "tenant": "Consul_SD",
@@ -43,7 +43,7 @@ EOF
 }
 
 resource "bigip_fast_application" "nginx-app100" {
-  template        = "ConsulWebinar/ConsulWebinar"
+  template        = "FastWAF/FastWAF"
   fast_json   = <<EOF
 {
       "tenant": "App100",

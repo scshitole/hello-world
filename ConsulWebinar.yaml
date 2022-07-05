@@ -9,7 +9,7 @@ definitions:
     description: give a unique name for this application
   defpool:
     title: pool defination
-    description: give a unique name for this application
+    description: should follow format poolname_pool only
   virtualAddress:
     title: Virtual Address
     description: IP addresses of virtual addresses (will create 80/443)

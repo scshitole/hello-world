@@ -1,0 +1,81 @@
+title: Fast template with "WAF_Policy"
+description: This template will create a virtual server that will use event driven service discovery
+definitions:
+  tenant:
+    title: Name of tenant
+    description: give a unique name for this tenant
+  app:
+    title: Application
+    description: give a unique name for this application
+  defpool:
+    title: pool defination
+    description: should follow format poolname_pool only
+  virtualAddress:
+    title: Virtual Address
+    description: IP addresses of virtual addresses (will create 80/443)
+  virtualPort:
+    title: Virtual Port
+    description: Port that will be used
+    type: integer
+parameters:
+  virtualAddress: 10.0.0.200
+  virtualPort: 8080
+  tenant: "Consul_SD"
+  app: "Nginx"
+template: | 
+  {
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.2.0",
+        "id": "Prod_FAST_AS3_WAF",
+        "{{tenant}}": {
+            "class": "Tenant",
+            "defaultRouteDomain": 0,
+            "{{app}}": {
+                "class": "Application",
+                "template": "generic",
+                "{{app}}_VS": {
+                    "class": "Service_HTTPS",
+                    "remark": "Accepts HTTPS/TLS connections on port 443",
+                    "virtualAddresses": ["{{virtualAddress}}"],
+                    "redirect80": false,
+                    "pool": "{{defpool}}",
+                    "policyWAF": {
+                        "use": "Arcadia_WAF_API_policy"
+                    },
+                    "securityLogProfiles": [{
+                        "bigip": "/Common/Log all requests"
+                    }],
+                    "profileTCP": {
+                        "egress": "wan",
+                        "ingress": { "use": "TCP_Profile" } },
+                    "profileHTTP": { "use": "custom_http_profile" },
+                    "serverTLS": { "bigip": "/Common/arcadia_client_ssl" }
+                },
+                "Arcadia_WAF_API_policy": {
+                    "class": "WAF_Policy",
+                    "url": "https://gist.githubusercontent.com/scshitole/7b7cdcfbd48797d90769ae587324cc9b/raw/6f7a9be072230685956f84652312b3c7e153c6cf/WAFpolicy.json",
+                    "ignoreChanges": true
+                },
+                "{{defpool}}": {
+                    "class": "Pool",
+                    "monitors": ["http"],
+                    "members": [{
+                     "servicePort": 80,
+              "addressDiscovery": "event"   
+                    }]
+                },
+                "custom_http_profile": {
+                    "class": "HTTP_Profile",
+                    "xForwardedFor": true
+                },
+                "TCP_Profile": {
+                    "class": "TCP_Profile",
+                    "idleTimeout": 60 }
+            }
+        }
+    }
+  }
