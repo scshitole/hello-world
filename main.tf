@@ -62,7 +62,7 @@ resource "bigip_fast_application" "bbnginx-webserver" {
       "tenant": "S22Consul_SD",
       "app": "wordpress",
       "virtualAddress": "122.0.0.200",
-      "virtualPort": 8080
+      "virtualPort": 8080,
       "defpool": "wordpress_pool"
 }
 EOF
