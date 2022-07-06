@@ -55,16 +55,17 @@ resource "bigip_fast_application" "nginx-app100" {
 EOF
   depends_on = [bigip_fast_template.consul-webinar]
 }
-/*resource "bigip_fast_application" "bbnginx-webserver" {
-  template        = "ConsulWebinar/ConsulWebinar"
+resource "bigip_fast_application" "bbnginx-webserver" {
+  template        = "FastWAF/FastWAF"
   fast_json   = <<EOF
 {
       "tenant": "S22Consul_SD",
-      "app": "Nginx",
+      "app": "wordpress",
       "virtualAddress": "122.0.0.200",
       "virtualPort": 8080
+      "defpool": "wordpress_pool"
 }
 EOF
   depends_on = [bigip_fast_template.consul-webinar]
-}*/
+}
 
