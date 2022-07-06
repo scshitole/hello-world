@@ -44,11 +44,19 @@ template: |
                     "{{virtualAddress}}"
                 ],
                 "pool": "{{defpool}}",
+                "policyWAF": {
+                        "use": "Arcadia_WAF_API_policy"
+                    },
                 "persistenceMethods": [],
                 "profileMultiplex": {
                 "bigip": "/Common/oneconnect"
               }
               },
+              "Arcadia_WAF_API_policy": {
+                    "class": "WAF_Policy",
+                    "url": "https://gist.githubusercontent.com/scshitole/7b7cdcfbd48797d90769ae587324cc9b/raw/6f7a9be072230685956f84652312b3c7e153c6cf/WAFpolicy.json",
+                    "ignoreChanges": true
+                },
               "{{defpool}}": {
                 "class": "Pool",
                 "monitors": [
