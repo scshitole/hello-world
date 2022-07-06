@@ -38,7 +38,7 @@ template: |
                 "class": "Application",
                 "template": "generic",
                 "{{app}}_VS": {
-                    "class": "Service_HTTPS",
+                    "class": "Service_HTTP",
                     "remark": "Accepts HTTPS/TLS connections on port 443",
                     "virtualAddresses": ["{{virtualAddress}}"],
                     "redirect80": false,
